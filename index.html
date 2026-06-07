@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sahil Soni — Computer Science & Engineering student at VNIT Nagpur. Competitive Programmer, Web Developer, Builder." />
+  <meta name="keywords" content="Sahil Soni, VNIT Nagpur, CSE, Computer Science, Competitive Programming, Web Developer, Portfolio" />
+  <meta name="author" content="Sahil Soni" />
+  <meta property="og:title" content="Sahil Soni — Portfolio" />
+  <meta property="og:description" content="Computer Science & Engineering at VNIT Nagpur. Competitive Programmer. Web Developer. Builder." />
+  <meta property="og:type" content="website" />
+  <title>Sahil Soni — Portfolio</title>
+  <link rel="icon" href="public/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ─── HERO ──────────────────────────────────────────────── */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: var(--nav-height);
+    }
+
+    /* Particle canvas */
+    #particles-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Radial glow */
+    .hero-glow {
+      position: absolute;
+      width: 800px; height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      animation: glowPulse 6s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.6; transform: translate(-50%,-50%) scale(1); }
+      50%       { opacity: 1;   transform: translate(-50%,-50%) scale(1.08); }
+    }
+
+    /* Grid lines */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+    }
+
+    .hero-eyebrow-line {
+      width: 40px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+
+    .hero-eyebrow-text {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .hero-name {
+      font-family: var(--font-serif);
+      font-size: clamp(60px, 9vw, 112px);
+      font-weight: 700;
+      color: var(--ivory);
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.35s forwards;
+    }
+
+    .hero-name .gold-char {
+      color: var(--gold);
+      -webkit-text-stroke: 0;
+    }
+
+    .hero-role {
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ivory-dim);
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+    }
+
+    .hero-institution {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s forwards;
+    }
+
+    .hero-tagline {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 540px;
+      line-height: 1.75;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 80px;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.95s forwards;
+    }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.5s forwards;
+    }
+    .hero-scroll-text {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ivory-faint);
+    }
+    .hero-scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50%       { opacity: 1;   transform: scaleY(1.2); }
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ─── ACHIEVEMENTS ──────────────────────────────────────── */
+    .achievements-section {
+      padding: 80px 48px;
+      background: var(--black-mid);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .achievements-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,168,76,0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .achievements-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .achievement-card {
+      background: var(--black-card);
+      border: 1px solid var(--gold-border2);
+      border-radius: var(--radius-md);
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+      cursor: default;
+    }
+
+    .achievement-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .achievement-card:hover {
+      border-color: var(--gold-border);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .achievement-card:hover::before { opacity: 1; }
+
+    .achievement-number {
+      font-family: var(--font-serif);
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+      letter-spacing: -0.03em;
+    }
+
+    .achievement-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ivory);
+      margin-bottom: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    .achievement-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .achievement-icon {
+      position: absolute;
+      top: 20px; right: 20px;
+      font-size: 20px;
+      opacity: 0.25;
+    }
+
+    /* ─── ABOUT TEASER ──────────────────────────────────────── */
+    .about-teaser {
+      padding: 100px 48px;
+    }
+
+    .about-teaser-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-teaser-visual {
+      position: relative;
+    }
+
+    .about-visual-box {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: var(--black-card);
+      border: 1px solid var(--gold-border2);
+      border-radius: var(--radius-xl);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-visual-monogram {
+      font-family: var(--font-serif);
+      font-size: 140px;
+      font-weight: 700;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(201,168,76,0.2);
+      user-select: none;
+      letter-spacing: -0.05em;
+    }
+
+    .about-visual-badge {
+      position: absolute;
+      bottom: 24px; right: 24px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .about-visual-badge-num {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .about-visual-badge-label {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ivory-dim);
+      margin-top: 4px;
+    }
+
+    .about-visual-corner {
+      position: absolute;
+      top: 24px; left: 24px;
+      width: 32px; height: 32px;
+      border-top: 2px solid var(--gold);
+      border-left: 2px solid var(--gold);
+      border-radius: 4px 0 0 0;
+    }
+
+    .about-text .section-label { margin-bottom: 24px; }
+
+    .about-text-body {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text-body);
+      margin-bottom: 32px;
+    }
+
+    .about-traits {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .about-trait {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--ivory-dim);
+    }
+
+    .about-trait-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ─── SKILLS PREVIEW ────────────────────────────────────── */
+    .skills-preview {
+      padding: 0 48px 100px;
+    }
+
+    .skills-preview-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .skill-category-card {
+      background: var(--black-card);
+      border: 1px solid var(--gold-border2);
+      border-radius: var(--radius-md);
+      padding: 28px 24px;
+      transition: var(--transition);
+    }
+
+    .skill-category-card:hover {
+      border-color: var(--gold-border);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .skill-cat-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .skill-bar-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .skill-bar-item {}
+
+    .skill-bar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .skill-bar-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ivory-dim);
+    }
+
+    .skill-bar-pct {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gold);
+    }
+
+    .skill-bar-track {
+      height: 3px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+      border-radius: 100px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ─── GOALS SECTION ─────────────────────────────────────── */
+    .goals-section {
+      background: var(--black-mid);
+      padding: 100px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .goals-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .goals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .goal-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 24px;
+      background: var(--black-card);
+      border: 1px solid var(--gold-border2);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+    }
+
+    .goal-item:hover {
+      border-color: var(--gold-border);
+      background: rgba(201,168,76,0.03);
+    }
+
+    .goal-num {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 700;
+      color: rgba(201,168,76,0.2);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 40px;
+    }
+
+    .goal-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ivory-dim);
+      padding-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .about-teaser-inner { grid-template-columns: 1fr; gap: 48px; }
+      .about-teaser-visual { max-width: 360px; }
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-content { padding: 0 24px; }
+      .hero-buttons { gap: 8px; }
+      .achievements-section { padding: 64px 24px; }
+      .achievements-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-teaser { padding: 72px 24px; }
+      .skills-preview { padding: 0 24px 72px; }
+      .goals-section { padding: 72px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-name { font-size: 52px; }
+      .achievements-grid { grid-template-columns: 1fr; }
+      .hero-buttons .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAVIGATION ─────────────────────────────────────── -->
+  <nav class="nav" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Sahil Soni - Home">SS<span>.</span></a>
+      <div class="nav-links" role="list">
+        <a href="index.html" class="active" role="listitem">Home</a>
+        <a href="about.html" role="listitem">About</a>
+        <a href="academics.html" role="listitem">Academics</a>
+        <a href="projects.html" role="listitem">Projects</a>
+        <a href="contact.html" class="nav-cta" role="listitem">Contact</a>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="nav-mobile" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+    <a href="index.html" class="active">Home</a>
+    <a href="about.html">About</a>
+    <a href="academics.html">Academics</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <main>
+    <!-- ─── HERO ─────────────────────────────────────────── -->
+    <section class="hero-section" aria-label="Hero">
+      <canvas id="particles-canvas" aria-hidden="true"></canvas>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-grid" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <div class="hero-eyebrow" aria-hidden="true">
+          <div class="hero-eyebrow-line"></div>
+          <span class="hero-eyebrow-text">Portfolio 2025</span>
+        </div>
+
+        <h1 class="hero-name">Sahil<br><span class="gold-char">Soni</span></h1>
+
+        <p class="hero-role">Computer Science &amp; Engineering Student</p>
+        <p class="hero-institution">VNIT Nagpur</p>
+
+        <div class="hero-tags">
+          <span class="tag">Competitive Programmer</span>
+          <span class="tag">Web Developer</span>
+          <span class="tag">Builder</span>
+        </div>
+
+        <p class="hero-tagline">
+          Building technology, solving problems, and pursuing excellence through innovation and continuous learning.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="about.html" class="btn btn-primary">Explore My Journey</a>
+          <a href="projects.html" class="btn btn-outline">View Projects</a>
+          <a href="#" class="btn btn-ghost" id="resumeBtn">Resume</a>
+          <a href="contact.html" class="btn btn-ghost">Contact Me</a>
+        </div>
+      </div>
+
+      <div class="hero-scroll" aria-hidden="true">
+        <span class="hero-scroll-text">Scroll</span>
+        <div class="hero-scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ─── ACHIEVEMENTS ──────────────────────────────────── -->
+    <section class="achievements-section" aria-label="Key achievements">
+      <div class="achievements-inner">
+        <div class="section-header centered fade-up">
+          <span class="section-label">Milestones</span>
+          <h2 class="section-title">Achievements &amp; Rankings</h2>
+          <p class="section-subtitle">A record of academic excellence and competitive performance across examinations and institutions.</p>
+        </div>
+
+        <div class="achievements-grid">
+          <div class="achievement-card fade-up delay-1">
+            <span class="achievement-icon" aria-hidden="true">🏆</span>
+            <div class="achievement-number">99%</div>
+            <div class="achievement-label">Class 10 Score</div>
+            <div class="achievement-sub">Narayana e-Techno School</div>
+          </div>
+          <div class="achievement-card fade-up delay-2">
+            <span class="achievement-icon" aria-hidden="true">🥉</span>
+            <div class="achievement-number">#3</div>
+            <div class="achievement-label">Vidarbha Region Rank</div>
+            <div class="achievement-sub">Class 10 · All India</div>
+          </div>
+          <div class="achievement-card fade-up delay-3">
+            <span class="achievement-icon" aria-hidden="true">📚</span>
+            <div class="achievement-number">97.4%</div>
+            <div class="achievement-label">Class 12 Score</div>
+            <div class="achievement-sub">PCM · Science Stream</div>
+          </div>
+          <div class="achievement-card fade-up delay-4">
+            <span class="achievement-icon" aria-hidden="true">⚡</span>
+            <div class="achievement-number">99.61</div>
+            <div class="achievement-label">JEE Main Percentile</div>
+            <div class="achievement-sub">National Engineering Entrance</div>
+          </div>
+          <div class="achievement-card fade-up delay-5">
+            <span class="achievement-icon" aria-hidden="true">🎯</span>
+            <div class="achievement-number">9169</div>
+            <div class="achievement-label">JEE Advanced AIR</div>
+            <div class="achievement-sub">All India Rank · Top 1%</div>
+          </div>
+          <div class="achievement-card fade-up delay-6">
+            <span class="achievement-icon" aria-hidden="true">🎓</span>
+            <div class="achievement-number">9.41</div>
+            <div class="achievement-label">Overall CGPA</div>
+            <div class="achievement-sub">VNIT Nagpur · CSE</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── ABOUT TEASER ───────────────────────────────────── -->
+    <section class="about-teaser" aria-label="About Sahil">
+      <div class="about-teaser-inner">
+        <div class="about-teaser-visual fade-in">
+          <div class="about-visual-box">
+            <div class="about-visual-corner" aria-hidden="true"></div>
+            <div class="about-visual-monogram" aria-hidden="true">SS</div>
+            <div class="about-visual-badge">
+              <div class="about-visual-badge-num">9.41</div>
+              <div class="about-visual-badge-label">CGPA</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-text">
+          <span class="section-label fade-up">Who I Am</span>
+          <h2 class="section-title fade-up delay-1" style="margin-bottom:24px;">
+            Engineer.<br>
+            <em style="color:var(--gold);font-family:var(--font-serif);">Problem Solver.</em><br>
+            Builder.
+          </h2>
+          <p class="about-text-body fade-up delay-2">
+            I am a Computer Science and Engineering student at VNIT Nagpur, passionate about Competitive Programming, Data Structures &amp; Algorithms, Web Development, and Software Engineering.
+          </p>
+          <p class="about-text-body fade-up delay-3">
+            I enjoy building products, solving challenging problems, and continuously improving my technical skills. My goal is to become a full-stack developer and eventually build products that matter.
+          </p>
+
+          <div class="about-traits fade-up delay-4">
+            <div class="about-trait">
+              <div class="about-trait-dot"></div>
+              Passionate about Data Structures &amp; Algorithms
+            </div>
+            <div class="about-trait">
+              <div class="about-trait-dot"></div>
+              Building production-ready web applications
+            </div>
+            <div class="about-trait">
+              <div class="about-trait-dot"></div>
+              Consistent competitive programmer on LeetCode &amp; Codeforces
+            </div>
+          </div>
+
+          <div class="fade-up delay-5">
+            <a href="about.html" class="btn btn-primary">Read My Story</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SKILLS PREVIEW ─────────────────────────────────── -->
+    <section class="skills-preview" aria-label="Skills overview">
+      <div class="skills-preview-inner">
+        <div class="section-header fade-up">
+          <span class="section-label">Expertise</span>
+          <h2 class="section-title">Technical Skills</h2>
+          <p class="section-subtitle">Core competencies built through practice, projects, and competitive programming.</p>
+        </div>
+
+        <div class="skills-grid">
+          <!-- Programming -->
+          <div class="skill-category-card fade-up delay-1">
+            <div class="skill-cat-label">Programming</div>
+            <div class="skill-bar-row">
+              <div class="skill-bar-item">
+                <div class="skill-bar-header">
+                  <span class="skill-bar-name">C++</span>
+                  <span class="skill-bar-pct">90%</span>
+                </div>
+                <div class="skill-bar-track">
+                  <div class="skill-bar-fill" data-width="90"></div>
+                </div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-bar-header">
+                  <span class="skill-bar-name">DSA</span>
+                  <span class="skill-bar-pct">85%</span>
+                </div>
+                <div class="skill-bar-track">
+                  <div class="skill-bar-fill" data-width="85"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Frontend -->
+          <div class="skill-category-card fade-up delay-2">
+            <div class="skill-cat-label">Frontend</div>
+            <div class="skill-bar-row">
+              <div class="skill-bar-item">
+                <div class="skill-bar-header">
+                  <span class="skill-bar-name">HTML / CSS</span>
+                  <span class="skill-bar-pct">88%</span>
+                </div>
+                <div class="skill-bar-track">
+                  <div class="skill-bar-fill" data-width="88"></div>
+                </div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-bar-header">
+                  <span class="skill-bar-name">JavaScript</span>
+                  <span class="skill-bar-pct">80%</span>
+                </div>
+                <div class="skill-bar-track">
+                  <div class="skill-bar-fill" data-width="80"></div>
+                </div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-bar-header">
+                  <span class="skill-bar-name">React (Learning)</span>
+                  <span class="skill-bar-pct">55%</span>
+                </div>
+                <div class="skill-bar-track">
+                  <div class="skill-bar-fill" data-width="55"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tools -->
+          <div class="skill-category-card fade-up delay-3">
+            <div class="skill-cat-label">Tools</div>
+            <div class="skill-bar-row">
+              <div class="skill-bar-item">
+                <div class="skill-bar-header">
+                  <span class="skill-bar-name">Git / GitHub</span>
+                  <span class="skill-bar-pct">82%</span>
+                </div>
+                <div class="skill-bar-track">
+                  <div class="skill-bar-fill" data-width="82"></div>
+                </div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-bar-header">
+                  <span class="skill-bar-name">Vite</span>
+                  <span class="skill-bar-pct">75%</span>
+                </div>
+                <div class="skill-bar-track">
+                  <div class="skill-bar-fill" data-width="75"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── GOALS ──────────────────────────────────────────── -->
+    <section class="goals-section" aria-label="Current goals">
+      <div class="goals-inner">
+        <div class="section-header centered fade-up">
+          <span class="section-label">Roadmap</span>
+          <h2 class="section-title">Current Goals</h2>
+          <p class="section-subtitle">Deliberate ambitions driving every line of code I write today.</p>
+        </div>
+
+        <div class="goals-grid">
+          <div class="goal-item fade-up delay-1">
+            <span class="goal-num">01</span>
+            <span class="goal-text">Reach 1600+ LeetCode Rating</span>
+          </div>
+          <div class="goal-item fade-up delay-2">
+            <span class="goal-num">02</span>
+            <span class="goal-text">Master React and Next.js</span>
+          </div>
+          <div class="goal-item fade-up delay-3">
+            <span class="goal-num">03</span>
+            <span class="goal-text">Build Production-Ready Applications</span>
+          </div>
+          <div class="goal-item fade-up delay-4">
+            <span class="goal-num">04</span>
+            <span class="goal-text">Participate in Hackathons</span>
+          </div>
+          <div class="goal-item fade-up delay-5">
+            <span class="goal-num">05</span>
+            <span class="goal-text">Contribute to Open Source</span>
+          </div>
+          <div class="goal-item fade-up delay-6">
+            <span class="goal-num">06</span>
+            <span class="goal-text">Become a Full Stack Developer</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-logo">Sahil Soni</div>
+      <p class="footer-tagline">Computer Science &amp; Engineering · VNIT Nagpur</p>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="academics.html">Academics</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="footer-social" aria-label="Social links">
+        <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </a>
+        <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://leetcode.com/" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>
+        </a>
+      </div>
+
+      <p class="footer-copy">Designed &amp; Developed by Sahil Soni &mdash; 2025</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
