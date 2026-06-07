@@ -358,7 +358,7 @@
               <h2 class="contact-form-title">Send a Message</h2>
               <p class="contact-form-sub">I typically respond within 24 hours.</p>
 
-              <form id="contactForm" novalidate>
+              <form id="contactForm" action="https://formspree.io/f/mlgkjpjw" method="POST" novalidate>
                 <div class="form-row">
                   <div class="form-group">
                     <label class="form-label" for="formName">Name</label>
@@ -466,31 +466,50 @@
 
   <script type="module" src="script.js"></script>
   <script>
-    // Contact form handler
+    // Contact form — submits to Formspree, delivers to your inbox
     const form = document.getElementById('contactForm');
     const successMsg = document.getElementById('formSuccess');
 
     if (form) {
-      form.addEventListener('submit', function(e) {
+      form.addEventListener('submit', async function(e) {
         e.preventDefault();
-        const name = document.getElementById('formName').value.trim();
-        const email = document.getElementById('formEmail').value.trim();
+
+        const name    = document.getElementById('formName').value.trim();
+        const email   = document.getElementById('formEmail').value.trim();
         const subject = document.getElementById('formSubject').value.trim();
         const message = document.getElementById('formMessage').value.trim();
 
         if (!name || !email || !subject || !message) return;
 
-        // Simulate send
         const submitBtn = form.querySelector('.form-submit');
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
+        submitBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Sending…`;
 
-        setTimeout(() => {
-          form.style.display = 'none';
-          successMsg.style.display = 'block';
-        }, 1200);
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: new FormData(form)
+          });
+
+          if (res.ok) {
+            form.style.display = 'none';
+            successMsg.style.display = 'block';
+          } else {
+            const data = await res.json();
+            const errMsg = data.errors ? data.errors.map(e => e.message).join(', ') : 'Something went wrong. Please try again.';
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message`;
+            alert(errMsg);
+          }
+        } catch (err) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message`;
+          alert('Network error. Please check your connection and try again.');
+        }
       });
     }
   </script>
+
 </body>
 </html>
