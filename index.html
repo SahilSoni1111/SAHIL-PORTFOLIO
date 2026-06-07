@@ -304,7 +304,8 @@
 
     .about-visual-box {
       width: 100%;
-      aspect-ratio: 4/5;
+      max-width: 300px;
+      aspect-ratio: 3/4;
       background: var(--black-card);
       border: 1px solid var(--gold-border2);
       border-radius: var(--radius-xl);
@@ -315,14 +316,27 @@
       justify-content: center;
     }
 
-    .about-visual-monogram {
-      font-family: var(--font-serif);
-      font-size: 140px;
-      font-weight: 700;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(201,168,76,0.2);
-      user-select: none;
-      letter-spacing: -0.05em;
+    .about-visual-box::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 45%;
+      background: linear-gradient(to top, rgba(4,4,4,0.6) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .about-visual-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .about-visual-box:hover .about-visual-photo {
+      transform: scale(1.05);
     }
 
     .about-visual-badge {
@@ -672,8 +686,13 @@
         <div class="about-teaser-visual fade-in">
           <div class="about-visual-box">
             <div class="about-visual-corner" aria-hidden="true"></div>
-            <div class="about-visual-monogram" aria-hidden="true">SS</div>
-            <div class="about-visual-badge">
+            <img
+              src="/myimage.jpeg"
+              alt="Sahil Soni — Computer Science student at VNIT Nagpur"
+              class="about-visual-photo"
+              loading="eager"
+            />
+            <div class="about-visual-badge" style="z-index:2;">
               <div class="about-visual-badge-num">9.41</div>
               <div class="about-visual-badge-label">CGPA</div>
             </div>
