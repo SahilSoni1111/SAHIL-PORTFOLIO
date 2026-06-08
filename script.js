@@ -11,6 +11,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
 /* ─── DOM READY ───────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
   initIntro();
   initNavbar();
   initMobileMenu();
@@ -24,6 +25,58 @@ document.addEventListener('DOMContentLoaded', () => {
   initCounters();
   initPageTransitions();
 });
+
+/* ────────────────────────────────────────────────────────────
+   THEME — dark / light toggle, persisted in localStorage
+──────────────────────────────────────────────────────────── */
+function initTheme() {
+  const STORAGE_KEY = 'ss_theme';
+  const html = document.documentElement;
+
+  // Apply saved theme immediately (before paint) to avoid flash
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved === 'light') html.setAttribute('data-theme', 'light');
+
+  // Build the toggle button and inject it into the navbar
+  const navInner = document.querySelector('.nav-inner');
+  if (!navInner) return;
+
+  const btn = document.createElement('button');
+  btn.className = 'theme-toggle';
+  btn.setAttribute('aria-label', 'Toggle light/dark theme');
+  btn.setAttribute('title', 'Toggle theme');
+  btn.innerHTML = `
+    <span class="theme-toggle-icon" aria-hidden="true"></span>
+    <span class="theme-toggle-label"></span>
+  `;
+
+  function applyTheme(theme) {
+    const icon  = btn.querySelector('.theme-toggle-icon');
+    const label = btn.querySelector('.theme-toggle-label');
+    if (theme === 'light') {
+      html.setAttribute('data-theme', 'light');
+      icon.textContent  = '☾';
+      label.textContent = 'Dark';
+    } else {
+      html.removeAttribute('data-theme');
+      icon.textContent  = '☀';
+      label.textContent = 'Light';
+    }
+    localStorage.setItem(STORAGE_KEY, theme);
+  }
+
+  btn.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    applyTheme(current === 'light' ? 'dark' : 'light');
+  });
+
+  // Insert button between nav-links and hamburger
+  const hamburger = navInner.querySelector('.nav-hamburger');
+  navInner.insertBefore(btn, hamburger || null);
+
+  // Set initial icon state
+  applyTheme(saved === 'light' ? 'light' : 'dark');
+}
 
 /* ────────────────────────────────────────────────────────────
    INTRO LOADER — luxury gold reveal on first load
